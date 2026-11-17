@@ -1,0 +1,11 @@
+{
+  "data": [5, 4, 9, 2, 7, 3],
+  "operations": [
+    {"type": "map", "func": "x * 2"},
+    {"type": "filter", "func": "x > 5"},
+    {"type": "count"},
+    {"type": "collect"},
+    {"type": "map", "func": "x + 10"},
+    {"type": "show", "n": 2}
+  ]
+}
