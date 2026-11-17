@@ -1,48 +1,47 @@
-
-# from pyspark.sql import SparkSession
-# from pyspark.sql.functions import col, count, sum as spark_sum
-
-# spark = (
-#     SparkSession.builder
-#     .appName("HMS-Analytics")
-#     .master("local[*]")
-#     .getOrCreate()
-# )
-
-# df = spark.read.csv(
-#     "appointments.csv",
-#     header=True,
-#     inferSchema=True
-# )
-
-# df.printSchema()
-
-# # Transformations: lazy
-# completed = df.filter(
-#     col("status") == "COMPLETED"
-# )
-
-# revenue = completed.groupBy(
-#     "department_id"
-# ).agg(
-#     count("*").alias("appointments"),
-#     spark_sum("fees").alias("total_fees")
-# )
-
-# # Action: triggers execution
-# revenue.show()
-
-# # Inspect physical execution plan
-# revenue.explain()
-
-# input("Press Enter to stop Spark...")
-# spark.stop()
-
 from pyspark.sql import SparkSession
+from pyspark.sql.functions import col, count, sum
 
 spark = (SparkSession.builder.
          appName("HMS-Analytics").
          master("local[4]").
          getOrCreate())
 
-print(spark.version)
+spark.sparkContext.setLogLevel("ERROR")
+
+# print(spark.version)
+
+df = spark.read.csv("data/appointments.csv", header=True, inferSchema=True)
+
+# df.printSchema()
+# print(df.show(5))
+
+# filter_df = df.filter(col("status") == "CONFIRMED")
+
+# selected_df = filter_df.select("appointment_id", "doctor_id", "fees")
+
+# high_fees_df = selected_df.filter(col("fees") >= 1000)
+
+# high_fees_df.show(100)
+# print("Total matching appointments:", high_fees_df.count())
+
+# input("Check Spark UI again, then press Enter...")
+df = df.repartition(4)
+
+print("Partitions:", df.rdd.getNumPartitions())
+result = (
+    df.filter(col("status") == "CONFIRMED")
+      .groupBy("doctor_id")
+      .agg(
+          count("*").alias("total_appointments"),
+          sum("fees").alias("total_fees")
+      )
+      .orderBy(col("total_appointments").desc())
+)
+
+print(result)
+result.show(1500, truncate=False)
+
+print("Input partitions:", df.rdd.getNumPartitions())
+print("Result partitions:", result.rdd.getNumPartitions())
+
+input("Inspect Spark UI, then press Enter...")
