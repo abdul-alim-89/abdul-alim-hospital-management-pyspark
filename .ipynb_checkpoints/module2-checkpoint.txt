@@ -1,0 +1,151 @@
+PySpark Training — Module 2
+RDDs
+Module-wise plan: 10 modules total, no days or weeks attached. Apply every concept to your own assigned project.
+Module 2 — RDDs
+Estimated time: 1.5 days full-time. This is a target, not a deadline. RDDs are rarely written directly in modern PySpark,
+so this module stays lean: lazy evaluation, partitions, broadcast variables and accumulators matter most.
+Two topics, one module: This module combines two topics. Work through Part A and then Part B, each with its own
+reference example, guiding questions and done-when list. Both parts are reviewed together in the single PR at the end.
+Part A — RDD Basics — Transformations & Actions
+Why this matters
+RDDs (Resilient Distributed Datasets) are Spark's original core abstraction, and DataFrames are built on top of them.
+Understanding RDDs directly — before the more convenient DataFrame API — is what makes concepts like partitioning and
+fault tolerance concrete instead of abstract.
+By end of this part, you will be able to
+●
+●
+●
+●
+Create an RDD from a Python collection and from a file
+Apply core transformations: map, filter, flatMap
+Apply core actions: collect, count, take, reduce
+Explain what 'Resilient' in RDD actually means
+Topics to study, in order
+●
+●
+●
+●
+●
+What is an RDD — an immutable, distributed collection of objects, partitioned across the cluster — the R-D-D
+name literally describes its 3 defining properties
+Creating RDDs — sc.parallelize() from a Python collection, or sc.textFile() from a file — both split the data into
+partitions automatically
+Core transformations — map (1-to-1), filter (keep matching), flatMap (1-to-many, then flatten) — the building
+blocks of almost every RDD pipeline
+Core actions — collect (bring everything back to the driver — dangerous on large data), count, take(n), reduce, first
+Resilience — how Spark tracks the lineage (the sequence of transformations) of an RDD so it can recompute lost
+partitions after a node failure, instead of needing to replicate data everywhere
+Hands-on practice
+●
+●
+●
+Create an RDD from a Python list of numbers, apply map to square each, filter for evens, and collect the result
+Load a text file as an RDD, split each line into words with flatMap, and count total words
+Deliberately call .collect() on a large RDD and observe (in the Spark UI or via a simulated large dataset) why this is
+dangerous on real cluster-sized data
+Reference Example (illustration only — do NOT copy this into your project)
+This shows what this topic looks like in a generic reference exercise. Read it to understand the pattern, then design and build
+your own version for your assigned domain below.
+In the reference exercise, this builds:●
+●
+●
+A script computing word count from a provided text file using only RDD operations (textFile, flatMap, map,
+reduceByKey)
+A script demonstrating map, filter, and reduce chained together on a numeric dataset, with the final result printed via
+an action
+A short note explaining why .collect() should almost never be called on a full production-sized RDD
+Apply to Your Project — think this through, then build it yourself
+Nobody is handing you a spec for these. Think through your own domain's answer to each question, make a decision, and
+build it, using your own datasets, columns and logic rather than the reference example's.
+●
+●
+●
+Take a log-like or text-like slice of your domain's data (event lines, free-text notes, raw CSV read as lines). Which
+single question about it can be answered with map, filter, flatMap and reduceByKey alone?
+Implement that question on RDDs and explain what each transformation does to the data.
+Which action did you choose to see the result, and why is it safe on large data?
+This part is done when
+☐ An RDD pipeline answers a real question about your own domain's data, not word count on the reference text
+☐ You can explain why you avoided collect on large data and what you used instead
+☐ You can explain your design decisions to your mentor: not just that the code runs, but why you built it the way you did
+Think About It
+Think About It: What does 'Resilient' in RDD actually refer to, and how does lineage tracking let Spark recover from a
+lost partition without replicating all your data?
+Think About It: Why is .collect() dangerous on a 500 GB RDD but .take(10) is fine?
+Part B — RDD Advanced — Persistence, Partitioning & Shared Variables
+Why this matters
+Once your pipeline reuses an RDD multiple times, or needs data shared efficiently across every executor, naive code
+becomes slow or wrong. This module covers the tools that separate a 'working' Spark job from an efficient one.
+By end of this part, you will be able to
+●
+●
+●
+●
+Decide when to cache/persist an RDD and choose an appropriate storage level
+Explain what a partition is and why partition count matters for parallelism
+Use a broadcast variable to share read-only data efficiently across executors
+Use an accumulator to safely aggregate a value across executors
+Topics to study, in order
+●
+●
+●
+●
+●
+Caching / persistence — cache() / persist() — telling Spark to keep an RDD's computed data in memory (or disk)
+so it isn't recomputed from scratch every time it's reused
+Storage levels — MEMORY_ONLY vs MEMORY_AND_DISK vs DISK_ONLY — trade-offs between speed and
+reliability when data doesn't fully fit in memory
+Partitions — how data is physically split across executors; too few partitions underuses your cluster, too many adds
+overhead — repartition() vs coalesce()
+Broadcast variables — shipping a read-only lookup value (e.g. a small reference table) to every executor ONCE,
+instead of it being re-sent with every task
+Accumulators — a write-only-from-executors, read-only-from-driver variable for safely aggregating counts/sums
+across a distributed job (e.g. counting malformed rows)Hands-on practice
+●
+●
+●
+●
+Time an RDD pipeline that reuses the same RDD 3 times, first without caching, then with .cache() — compare
+execution time in the Spark UI
+Check the default partition count of an RDD you create, then deliberately repartition it and observe the change
+Use a broadcast variable to join a large RDD against a small lookup dictionary without a full distributed join
+Use an accumulator to count how many rows in a dataset failed a validation check, while processing the data in one
+pass
+Reference Example (illustration only — do NOT copy this into your project)
+This shows what this topic looks like in a generic reference exercise. Read it to understand the pattern, then design and build
+your own version for your assigned domain below.
+In the reference exercise, this builds:
+●
+●
+●
+●
+A script demonstrating a measurable speed difference between a cached and non-cached RDD reused 3+ times, with
+timings printed
+A script using repartition() or coalesce() with a written justification for the partition count chosen
+A script using a broadcast variable to enrich a large RDD with a small lookup table
+A script using an accumulator to count invalid/malformed records during processing
+Apply to Your Project — think this through, then build it yourself
+Nobody is handing you a spec for these. Think through your own domain's answer to each question, make a decision, and
+build it, using your own datasets, columns and logic rather than the reference example's.
+●
+●
+●
+Which small lookup in your domain (a code-to-description map, a rate table) could be shared with every executor as
+a broadcast variable?
+What would be a realistic 'bad record' in your data (malformed row, impossible value) that an accumulator could
+count while you process it?
+Which of your RDDs is reused enough to justify caching? Measure it with and without.
+This part is done when
+☐ A broadcast variable enriches your own data with a domain-specific lookup
+☐ An accumulator counts a real category of bad records from your own data, and the count matches a manual check
+☐ Your caching decision is backed by timing numbers
+☐ You can explain your design decisions to your mentor: not just that the code runs, but why you built it the way you did
+Think About It
+Think About It: Why does using a broadcast variable for a small lookup table avoid a full shuffle, compared to just
+joining two RDDs normally?
+Think About It: What would go wrong if you tried to read an accumulator's value from inside a transformation running
+on an executor, instead of on the driver after an action?
+Git for this module: Branch: module-2-rdds, created off the current main. Commit locally to this branch as you go, with
+daily commits while working and no need to push yet. Commit Part A's work and Part B's work separately, so your
+mentor can see the two halves distinctly in review. Once the ENTIRE module is complete, push the branch and open one
+PR to main, assign the mentor as reviewer, and merge after approval. Then branch off the updated main for the next

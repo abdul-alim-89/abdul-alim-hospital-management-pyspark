@@ -1,0 +1,31 @@
+id,first_name,last_name,email,phone,specialization,department_id,experience,fees,is_active,created_at
+1,Aarav,Sharma,seed.doctor001@example.test,9000000001,Cardiology,1,23,500.00,true,2026-01-01 09:00:00+05:30
+2,Ananya,Khan,seed.doctor002@example.test,9000000002,Neurology,2,3,1200.00,true,2026-01-01 09:00:00+05:30
+3,Rohan,Patel,seed.doctor003@example.test,9000000003,Orthopedics,3,11,600.00,true,2026-01-01 09:00:00+05:30
+4,Priya,Gupta,seed.doctor004@example.test,9000000004,Pediatrics,4,10,600.00,true,2026-01-01 09:00:00+05:30
+5,Vikram,Singh,seed.doctor005@example.test,9000000005,Dermatology,5,6,1200.00,true,2026-01-01 09:00:00+05:30
+6,Neha,Verma,seed.doctor006@example.test,9000000006,General Medicine,6,20,500.00,true,2026-01-01 09:00:00+05:30
+7,Arjun,Mehta,seed.doctor007@example.test,9000000007,ENT,7,21,800.00,true,2026-01-01 09:00:00+05:30
+8,Sana,Rao,seed.doctor008@example.test,9000000008,Gynecology,8,4,500.00,true,2026-01-01 09:00:00+05:30
+9,Kabir,Joshi,seed.doctor009@example.test,9000000009,Cardiology,1,5,600.00,true,2026-01-01 09:00:00+05:30
+10,Meera,Kapoor,seed.doctor010@example.test,9000000010,Neurology,2,10,1000.00,true,2026-01-01 09:00:00+05:30
+11,Ishaan,Sharma,seed.doctor011@example.test,9000000011,Orthopedics,3,22,500.00,true,2026-01-01 09:00:00+05:30
+12,Aisha,Khan,seed.doctor012@example.test,9000000012,Pediatrics,4,20,600.00,true,2026-01-01 09:00:00+05:30
+13,Rahul,Patel,seed.doctor013@example.test,9000000013,Dermatology,5,25,1200.00,true,2026-01-01 09:00:00+05:30
+14,Pooja,Gupta,seed.doctor014@example.test,9000000014,General Medicine,6,25,1000.00,true,2026-01-01 09:00:00+05:30
+15,Aditya,Singh,seed.doctor015@example.test,9000000015,ENT,7,16,600.00,true,2026-01-01 09:00:00+05:30
+16,Nisha,Verma,seed.doctor016@example.test,9000000016,Gynecology,8,17,1000.00,true,2026-01-01 09:00:00+05:30
+17,Karan,Mehta,seed.doctor017@example.test,9000000017,Cardiology,1,11,1500.00,true,2026-01-01 09:00:00+05:30
+18,Simran,Rao,seed.doctor018@example.test,9000000018,Neurology,2,3,1500.00,true,2026-01-01 09:00:00+05:30
+19,Dev,Joshi,seed.doctor019@example.test,9000000019,Orthopedics,3,8,1200.00,true,2026-01-01 09:00:00+05:30
+20,Riya,Kapoor,seed.doctor020@example.test,9000000020,Pediatrics,4,16,700.00,true,2026-01-01 09:00:00+05:30
+21,Manav,Sharma,seed.doctor021@example.test,9000000021,Dermatology,5,11,600.00,true,2026-01-01 09:00:00+05:30
+22,Tara,Khan,seed.doctor022@example.test,9000000022,General Medicine,6,9,1500.00,true,2026-01-01 09:00:00+05:30
+23,Nikhil,Patel,seed.doctor023@example.test,9000000023,ENT,7,13,500.00,true,2026-01-01 09:00:00+05:30
+24,Zoya,Gupta,seed.doctor024@example.test,9000000024,Gynecology,8,5,800.00,true,2026-01-01 09:00:00+05:30
+25,Varun,Singh,seed.doctor025@example.test,9000000025,Cardiology,1,6,700.00,true,2026-01-01 09:00:00+05:30
+26,Kavya,Verma,seed.doctor026@example.test,9000000026,Neurology,2,14,1000.00,true,2026-01-01 09:00:00+05:30
+27,Amit,Mehta,seed.doctor027@example.test,9000000027,Orthopedics,3,11,1500.00,true,2026-01-01 09:00:00+05:30
+28,Diya,Rao,seed.doctor028@example.test,9000000028,Pediatrics,4,4,1200.00,true,2026-01-01 09:00:00+05:30
+29,Farhan,Joshi,seed.doctor029@example.test,9000000029,Dermatology,5,17,1000.00,true,2026-01-01 09:00:00+05:30
+30,Shruti,Kapoor,seed.doctor030@example.test,9000000030,General Medicine,6,6,800.00,true,2026-01-01 09:00:00+05:30
