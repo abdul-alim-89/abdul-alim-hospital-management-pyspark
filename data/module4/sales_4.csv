@@ -1,0 +1,16 @@
+transaction_id,product_category,amount,transaction_date
+1,Electronics,1500.50,2026-01-01
+2,Clothing,750.00,2026-01-01
+3,Grocery,250.75,2026-01-02
+4,Electronics,3200.00,2026-01-02
+5,Furniture,4500.00,2026-01-03
+6,Clothing,1200.50,2026-01-03
+7,Grocery,350.25,2026-01-04
+8,Books,450.00,2026-01-04
+9,Electronics,2800.75,2026-01-05
+10,Furniture,5500.00,2026-01-05
+11,Books,650.50,2026-01-06
+12,Clothing,950.00,2026-01-06
+13,Grocery,180.50,2026-01-07
+14,Books,320.00,2026-01-07
+15,Furniture,3800.00,2026-01-08
