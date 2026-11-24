@@ -52,6 +52,7 @@ from src.rdd.appointment_analytics import count_confirmed_appointments
 from src.rdd.revenue_analytics import calculate_total_fees
 from src.rdd.doctor_enrichment import enrich_appointments
 from src.rdd.data_validation import validate_appointments
+from src.dataframes.dataframe_main import main as datafarme_main
 
 def parse_csv(line):
     return next(csv.reader([line]))
@@ -91,6 +92,9 @@ def main():
         print("\n--- Data Validation ---")
         validate_appointments(sc, appointments_rdd)
 
+        print("\n------------ dataframe-----------")
+        datafarme_main()
+        
     finally:
         # Stop Spark only after all jobs finish
         spark.stop()
